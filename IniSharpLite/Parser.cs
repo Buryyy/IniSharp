@@ -5,13 +5,14 @@ namespace IniSharpLite
 {
     internal class Parser : IParser
     {
-        private IDictionary<string, Dictionary<string, string>> _sections;
-        private readonly string _configFilePath;
-        private bool _changesPending;
+        private readonly IDictionary<string, Dictionary<string, string>> _sections;
+        private readonly string _configurationFilePath;
+
+        private bool _isChangesPending;
 
         public Parser(string configFile, bool useInMemory)
         {
-            _configFilePath = configFile;
+            _configurationFilePath = configFile;
             _sections = new Dictionary<string, Dictionary<string, string>>();
 
             if (useInMemory)
@@ -104,7 +105,7 @@ namespace IniSharpLite
 
         public void Save()
         {
-            using (var fileStream = new FileStream(_configFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
+            using (var fileStream = new FileStream(_configurationFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
             using (StreamWriter writer = new StreamWriter(fileStream))
             {
                 foreach (var section in _sections)
@@ -117,7 +118,7 @@ namespace IniSharpLite
                     writer.WriteLine();  // Add an empty line for better readability
                 }
             }
-            _changesPending = false;
+            _isChangesPending = false;
         }
 
         private void HandleInsideSectionState(string line, Dictionary<string, string> currentSection, int lineNumber)
@@ -150,10 +151,10 @@ namespace IniSharpLite
 
         public void SaveAllChanges()
         {
-            if (_changesPending)
+            if (_isChangesPending)
             {
                 Save();
-                _changesPending = false;
+                _isChangesPending = false;
             }
         }
 
@@ -166,7 +167,7 @@ namespace IniSharpLite
             }
 
             sectionDict[key] = value;
-            _changesPending = true;
+            _isChangesPending = true;
         }
 
         private bool IsCommentOrEmpty(string line) => string.IsNullOrEmpty(line) || line.StartsWith(";");

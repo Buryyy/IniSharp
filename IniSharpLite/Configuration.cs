@@ -6,43 +6,34 @@ namespace IniSharpLite
     public class Configuration : IConfiguration
     {
         private readonly IParser _parser;
+        private readonly char _keySeparator = ':';
 
-        /// <summary>
-        /// Create's an Configuration instance of an ini file.
-        /// </summary>
-        /// <param name="iniPath">Path to .ini file</param>
-        /// <param name="useInMemory">Default: ON, only set false if your file is large and having trouble loading it.</param>
         public Configuration(string iniPath, bool useInMemory = true)
         {
             _parser = new Parser(iniPath, useInMemory);
         }
 
+        private (string section, string key) ParseKey(string compositeKey)
+        {
+            var segments = compositeKey.Split(_keySeparator);
+            if (segments.Length != 2 || string.IsNullOrWhiteSpace(segments[0]) || string.IsNullOrWhiteSpace(segments[1]))
+            {
+                throw new ArgumentException($"Key must be in the format 'Section{_keySeparator}Key' and neither section nor key should be empty.", nameof(compositeKey));
+            }
+
+            return (segments[0].Trim(), segments[1].Trim());
+        }
+
         public string GetValue(string key)
         {
-            var parts = key.Split(':');
-            if (parts.Length != 2) return null;
-
-            return _parser.GetValue(parts[0], parts[1]);
+            var (section, keyValue) = ParseKey(key);
+            return _parser.GetValue(section, keyValue);
         }
 
         public string this[string key]
         {
-            get
-            {
-                var segments = key.Split(':');
-                if (segments.Length != 2)
-                {
-                    throw new ArgumentException("Key must be in the format 'Section:Key'.", nameof(key));
-                }
-                var section = segments[0];
-                var keyValue = segments[1];
-
-                return _parser.GetValue(section, keyValue);
-            }
-            set
-            {
-                SetValue(key, value);
-            }
+            get => GetValue(key);
+            set => SetValue(key, value);
         }
 
         public void SaveChanges()
@@ -52,15 +43,7 @@ namespace IniSharpLite
 
         public void SetValue(string key, string value)
         {
-            var segments = key.Split(':');
-            if (segments.Length != 2)
-            {
-                throw new ArgumentException("Key must be in the format 'Section:Key'.", nameof(key));
-            }
-
-            var section = segments[0];
-            var keyValue = segments[1];
-
+            var (section, keyValue) = ParseKey(key);
             _parser.SetValue(section, keyValue, value);
         }
 
@@ -78,7 +61,14 @@ namespace IniSharpLite
             {
                 if (sectionData.ContainsKey(property.Name))
                 {
-                    property.SetValue(result, Convert.ChangeType(sectionData[property.Name], property.PropertyType));
+                    try
+                    {
+                        property.SetValue(result, Convert.ChangeType(sectionData[property.Name], property.PropertyType));
+                    }
+                    catch (InvalidCastException)
+                    {
+                        throw new InvalidOperationException($"Failed to convert the value '{sectionData[property.Name]}' in section '{sectionName}' for property '{property.Name}' of type '{property.PropertyType.Name}'.");
+                    }
                 }
             }
 
