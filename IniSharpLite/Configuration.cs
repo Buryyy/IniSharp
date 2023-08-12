@@ -6,7 +6,7 @@ namespace IniSharpLite
     public class Configuration : IConfiguration
     {
         private readonly IParser _parser;
-        private readonly char _keySeparator = ':';
+        private const char KeySeparator = ':';
 
         public Configuration(string iniPath, bool useInMemory = true)
         {
@@ -15,10 +15,10 @@ namespace IniSharpLite
 
         private (string section, string key) ParseKey(string compositeKey)
         {
-            var segments = compositeKey.Split(_keySeparator);
+            var segments = compositeKey.Split(KeySeparator);
             if (segments.Length != 2 || string.IsNullOrWhiteSpace(segments[0]) || string.IsNullOrWhiteSpace(segments[1]))
             {
-                throw new ArgumentException($"Key must be in the format 'Section{_keySeparator}Key' and neither section nor key should be empty.", nameof(compositeKey));
+                throw new ArgumentException($"Key must be in the format 'Section{KeySeparator}Key' and neither section nor key should be empty.", nameof(compositeKey));
             }
 
             return (segments[0].Trim(), segments[1].Trim());
