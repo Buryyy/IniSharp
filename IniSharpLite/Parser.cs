@@ -51,7 +51,8 @@ namespace IniSharpLite
 
         private void ParseFile(string filePath)
         {
-            using (var stream = new StreamReader(filePath))
+            using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var stream = new StreamReader(fileStream))
             {
                 int lineNumber = 0;
                 ParserState state = ParserState.OutsideSection;
@@ -103,7 +104,8 @@ namespace IniSharpLite
 
         public void Save()
         {
-            using (StreamWriter writer = new StreamWriter(_configFilePath))
+            using (var fileStream = new FileStream(_configFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
+            using (StreamWriter writer = new StreamWriter(fileStream))
             {
                 foreach (var section in _sections)
                 {
