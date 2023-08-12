@@ -6,13 +6,16 @@ IniSharp is a lightweight .NET library for reading and writing INI configuration
 - Strong Type Binding: Map INI sections directly to your C# classes for ease of use and type safety.
 - Flexible Indexer: Access configuration values directly with a simple syntax, config["Section:Key"].
 
+## Installation
+You can install this package on [NuGet](https://www.nuget.org/packages/IniSharpLite), any additional setup is not required. 
+
 ## Quickstart
 
-1. Setting Up Configuration: You can initialize your configuration from a given INI file path:
+1. **Setting Up Configuration: You can initialize your configuration from a given INI file path:**
 ```cs
 var config = new Configuration("path_to_your_config.ini");
 ```
-2. Reading Values:
+2.  **Reading Values:**
 
 Using a function:
 
@@ -25,12 +28,12 @@ Or using the indexer:
 var theme = config["Settings:Theme"];
 ```
 
-3. Updating values
+3. **Updating values**
 ```cs
 config["Settings:Theme"] = "Light";
 config.SaveChanges(); // Persist changes to the file
 ```
-4. Binding to Strong Types:
+4. **Binding to Strong Types:**
 
 If you have a C# class Profile:
 
