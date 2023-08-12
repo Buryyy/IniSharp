@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace IniSharp
+namespace IniSharpLite
 {
     public interface IConfiguration
     {

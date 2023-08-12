@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IniSharp
+namespace IniSharpLite
 {
     public class Configuration : IConfiguration
     {

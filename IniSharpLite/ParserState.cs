@@ -1,4 +1,4 @@
-﻿namespace IniSharp
+﻿namespace IniSharpLite
 {
     internal enum ParserState
     {

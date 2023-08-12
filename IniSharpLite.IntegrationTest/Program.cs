@@ -1,5 +1,5 @@
-﻿using IniSharp;
-using IniSharp.IntegrationTest;
+﻿using IniSharpLite;
+using IniSharpLite.IntegrationTest;
 
 
 // Assuming the INI file is named "config.ini" and is in the same directory as the executable.

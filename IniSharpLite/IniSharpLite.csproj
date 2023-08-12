@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Title>IniSharpLite</Title>
+		<Authors>Buryyy</Authors>
+		<Description>IniSharpLite is a lightweight .NET library for reading and writing INI configuration files.</Description>
+		<PackageProjectUrl>https://github.com/Buryyy/IniSharp</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/Buryyy/IniSharp</RepositoryUrl>
+		<PackageTags>ini;parser;easy;inisharp</PackageTags>
+		<Copyright>Buryyy</Copyright>
+		<PackageId>IniSharpLite</PackageId>
+		<Authors>Buryyy</Authors>
+		<Version>1.0.1</Version>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+</Project>

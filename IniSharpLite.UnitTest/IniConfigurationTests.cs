@@ -1,4 +1,4 @@
-﻿namespace IniSharp.UnitTest
+﻿namespace IniSharpLite.UnitTest
 {
     public class ConfigurationIntegrationTests
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IniSharp
+namespace IniSharpLite
 {
     public class IniParseException : Exception
     {

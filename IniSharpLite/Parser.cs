@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace IniSharp
+namespace IniSharpLite
 {
     internal class Parser : IParser
     {
