@@ -10,7 +10,7 @@ namespace IniSharpLite
 
         /// <param name="iniPath">Path to your .ini file.</param>
         /// <param name="useInMemory">toggle off ONLY IF you .ini file is ridiculously big, 
-        /// or if the load time of this instance is a problem.</param>
+        /// or if the load time of instance is a problem.</param>
         public Configuration(string iniPath, bool useInMemory = true)
         {
             _parser = new Parser(iniPath, useInMemory);
@@ -26,6 +26,7 @@ namespace IniSharpLite
 
             return (segments[0].Trim(), segments[1].Trim());
         }
+
         /// <summary>
         /// Get a value from given key.
         /// </summary>
