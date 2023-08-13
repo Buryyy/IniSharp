@@ -5,7 +5,9 @@ IniSharp is a lightweight .NET library for reading and writing INI configuration
 - Read/Write INI Files: Easily retrieve and update configuration values in the standard INI format.
 - Strong Type Binding: Map INI sections directly to your C# classes for ease of use and type safety.
 - Flexible Indexer: Access configuration values directly with a simple syntax, config["Section:Key"].
-
+- Concurrency support - Multiple reads from different instances to config file is supported.
+- Exclusive Writes: When an instance writes to the INI file, it does so exclusively. This ensures that during a write operation, no other instance can read or write, preserving data integrity. Once the write is complete, other instances can resume reading or initiate their own writes.
+  
 ## Installation
 You can install this package on [NuGet](https://www.nuget.org/packages/IniSharpLite), any additional setup is not required. 
 
@@ -50,4 +52,16 @@ You can bind an INI section directly to this class:
 var profile = config.GetSection<Profile>("Profile");
 Console.WriteLine(profile.Name);
 Console.WriteLine(profile.Age);
+```
+
+Example config.ini
+```ini
+# Random comment here
+[Settings]
+Theme=Dark
+AutoSave=False
+
+[Profile]
+Name=John
+Age=35
 ```
