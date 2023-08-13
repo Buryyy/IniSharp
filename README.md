@@ -1,5 +1,5 @@
-# IniSharp
-IniSharp is a lightweight .NET library for reading and writing INI configuration files. It provides both file-based persistence and in-memory configuration, allowing flexibility in different application scenarios.
+# IniSharpLite
+IniSharpLite is a lightweight .NET library for reading and writing INI configuration files. It provides both file-based persistence and in-memory configuration, allowing flexibility in different application scenarios.
 
 ## Features
 - Read/Write INI Files: Easily retrieve and update configuration values in the standard INI format.
