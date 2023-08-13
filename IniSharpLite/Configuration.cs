@@ -8,6 +8,9 @@ namespace IniSharpLite
         private readonly IParser _parser;
         private const char KeySeparator = ':';
 
+        /// <param name="iniPath">Path to your .ini file.</param>
+        /// <param name="useInMemory">toggle off ONLY IF you .ini file is ridiculously big, 
+        /// or if the load time of this instance is a problem.</param>
         public Configuration(string iniPath, bool useInMemory = true)
         {
             _parser = new Parser(iniPath, useInMemory);
@@ -23,7 +26,11 @@ namespace IniSharpLite
 
             return (segments[0].Trim(), segments[1].Trim());
         }
-
+        /// <summary>
+        /// Get a value from given key.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public string GetValue(string key)
         {
             var (section, keyValue) = ParseKey(key);
@@ -36,17 +43,27 @@ namespace IniSharpLite
             set => SetValue(key, value);
         }
 
+        /// <summary>
+        /// Persist your changes to the .ini file.
+        /// </summary>
         public void SaveChanges()
         {
             _parser.SaveAllChanges();
         }
 
+        /// <summary>
+        /// Set a value by given key.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         public void SetValue(string key, string value)
         {
             var (section, keyValue) = ParseKey(key);
             _parser.SetValue(section, keyValue, value);
         }
 
+        /// <param name="sectionName">The section name within the .ini file.</param>
+        /// <returns>Key value dictionary of contents of the section from the .ini file.</returns>
         public IDictionary<string, string> GetSection(string sectionName)
         {
             return _parser.GetSection(sectionName);
