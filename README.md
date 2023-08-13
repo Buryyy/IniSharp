@@ -53,3 +53,15 @@ var profile = config.GetSection<Profile>("Profile");
 Console.WriteLine(profile.Name);
 Console.WriteLine(profile.Age);
 ```
+
+Example config.ini
+```ini
+# Random comment here
+[Settings]
+Theme=Dark
+AutoSave=False
+
+[Profile]
+Name=John
+Age=35
+```
